@@ -1,3 +1,13 @@
 import request from '@/utils/request'
-
-export function login(){}
+/**
+ * 
+ * @param {object} data 
+ * @returns promise
+ */
+export function login(data){
+    return request({
+        url:'/sys/login',
+        method: 'POST',
+        data,
+    })
+}
