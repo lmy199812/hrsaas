@@ -46,7 +46,7 @@ export default {
   overflow: hidden;
 
   & .sidebar-logo-link {
-    height: 100%;
+    height: 98%;
     width: 100%;
 
     & .sidebar-logo {
