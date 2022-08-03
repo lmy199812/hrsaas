@@ -6,7 +6,7 @@
       @toggleClick="toggleSideBar"
     />
     <div class="app-breadcrumb">
-      江苏传智播客教育科技股份有限公司
+      {{ $store.state.user.userInfo.companyName }}
       <span class="breadBtn">体验版</span>
     </div>
 
@@ -15,8 +15,12 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
-          <span>用户名</span>
+          <img
+            :src="$store.state.user.userInfo.staffPhoto"
+            class="user-avatar"
+            v-imgError="defaultImg"
+          />
+          <span>{{ $store.state.user.userInfo.username }}</span>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -36,11 +40,16 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-
+import defaultImg from '@/assets/common/head.jpg'
 export default {
   components: {
     Breadcrumb,
     Hamburger
+  },
+  data() {
+    return {
+      defaultImg
+    }
   },
   computed: {
     ...mapGetters(['sidebar', 'avatar'])
