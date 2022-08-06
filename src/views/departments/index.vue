@@ -1,20 +1,26 @@
 <template>
   <div class="dashboard-container">
     <div class="app-container">
-      <el-card class="box-card">
+      <el-card class="box-card" v-loading="loading">
         <!-- 头部 -->
         <treeTools @add="Add" :isRoot="true" :treeNode="company" />
         <!--放置一个属性   这里的props和我们之前学习的父传子 的props没关系-->
         <!-- 树形 -->
         <el-tree :data="treeData" :props="defaultProps" default-expand-all="">
           <template v-slot="{ data }">
-            <treeTools @remove="loadDepts" @add="Add" :treeNode="data" />
+            <treeTools
+              @remove="loadDepts"
+              @add="Add"
+              :treeNode="data"
+              @edit="showEdit"
+            />
           </template>
         </el-tree>
       </el-card>
     </div>
     <!-- 添加部门弹出框 -->
     <addDepts
+      ref="addDept"
       :visible.sync="dialogVisible"
       @add-success="loadDepts"
       :addNode="addNode"
@@ -40,7 +46,8 @@ export default {
       },
       company: { name: '传智播客教育', manager: '负责人' },
       dialogVisible: false,
-      addNode: {}
+      addNode: {},
+      loading: false
     }
   },
   components: {
@@ -54,13 +61,20 @@ export default {
 
   methods: {
     async loadDepts() {
+      this.loading = true
       const res = await getDeptsApi()
       // console.log(res)
       this.treeData = transListToTree(res.depts, '')
+      this.loading = false
     },
     Add(val) {
       this.dialogVisible = true
       this.addNode = val
+    },
+    showEdit(val) {
+      // console.log(234523)
+      this.dialogVisible = true
+      this.$refs.addDept.getDeptById(val.id)
     }
   }
 }

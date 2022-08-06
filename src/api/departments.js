@@ -27,3 +27,17 @@ export function addDeptsApi(data) {
     data
   })
 }
+
+export function addDeptsId(id) {
+  return request({
+    url: `/company/department/${id}`
+  })
+}
+
+export function editDeptsApi(data) {
+  return request({
+    url: `/company/department/${data.id}`,
+    method: 'PUT',
+    data
+  })
+}
