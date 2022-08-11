@@ -30,7 +30,33 @@
           >
           </el-pagination>
         </el-tab-pane>
-        <el-tab-pane label="公司信息" name="second"> </el-tab-pane>
+        <el-tab-pane label="公司信息" name="second">
+          <el-alert
+            title="对公司名称、公司地址、营业执照、公司地区的更新，将使得公司资料被重新审核，请谨慎修改"
+            type="info"
+            description="文字说明文字说明文字说明文字说明文字说明文字说明"
+            show-icon
+            :closable="false"
+          >
+          </el-alert>
+          <el-form ref="form" label-width="80px">
+            <el-form-item label="公司名称">
+              <el-input v-model="companyInfo.name" disabled></el-input>
+            </el-form-item>
+            <el-form-item label="公司地址">
+              <el-input
+                v-model="companyInfo.companyAddress"
+                disabled
+              ></el-input>
+            </el-form-item>
+            <el-form-item label="公司邮箱">
+              <el-input v-model="companyInfo.mailbox" disabled></el-input>
+            </el-form-item>
+            <el-form-item label="备注">
+              <el-input v-model="companyInfo.remarks" disabled></el-input>
+            </el-form-item>
+          </el-form>
+        </el-tab-pane>
       </el-tabs>
     </div>
     <el-dialog
@@ -63,6 +89,7 @@
 
 <script>
 import { getRolesApi, addRoleApi } from '@/api/role'
+import { getCompanyApi } from '@/api/setting'
 export default {
   data() {
     return {
@@ -79,12 +106,14 @@ export default {
       addDialogVisible: false,
       rules: {
         name: [{ required: true, message: '请输入', trigger: 'blur' }]
-      }
+      },
+      companyInfo: {}
     }
   },
 
   created() {
     this.getRoles()
+    this.getCompanyInfo()
   },
 
   methods: {
@@ -120,6 +149,11 @@ export default {
     dialogClose() {
       this.$refs.form.resetFields()
       this.addRolesForm.description = ''
+    },
+    async getCompanyInfo() {
+      const res = await getCompanyApi(this.$store.state.user.userInfo.companyId)
+      console.log(res)
+      this.companyInfo = res
     }
   }
 }
