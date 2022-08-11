@@ -39,7 +39,7 @@
             :closable="false"
           >
           </el-alert>
-          <el-form ref="form" label-width="80px">
+          <el-form ref="form" label-width="80px" style="margin-top: 20px">
             <el-form-item label="公司名称">
               <el-input v-model="companyInfo.name" disabled></el-input>
             </el-form-item>

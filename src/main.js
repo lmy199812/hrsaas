@@ -15,11 +15,14 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 import * as directives from '@/directive'
+
+import components from '@/components'
 // mock假数据
 if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }
+Vue.use(components)
 
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
