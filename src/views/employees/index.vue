@@ -4,9 +4,19 @@
       <page-tools>
         <span slot="left-tag">共166条记录</span>
         <template slot="right">
-          <el-button size="small" type="warning">导入</el-button>
+          <el-button
+            size="small"
+            @click="$router.push('/import')"
+            type="warning"
+            >导入</el-button
+          >
           <el-button size="small" type="danger">导出</el-button>
-          <el-button size="small" type="primary">新增员工</el-button>
+          <el-button
+            size="small"
+            type="primary"
+            @click="showAddEmployees = true"
+            >新增员工</el-button
+          >
         </template>
       </page-tools>
       <!-- 放置表格和分页 -->
@@ -78,6 +88,10 @@
         </el-row>
       </el-card>
     </div>
+    <addEmployees
+      @add-success="getEmployeesList"
+      :visible.sync="showAddEmployees"
+    />
   </div>
 </template>
 
@@ -85,6 +99,7 @@
 import { getEmployeesInfoApi, delEmployee } from '@/api/employees'
 import employees from '@/constant/employees'
 
+import addEmployees from './components/addEmployees.vue'
 export default {
   name: 'Employees',
   data() {
@@ -94,8 +109,12 @@ export default {
         page: 1,
         size: 5
       },
-      total: 0
+      total: 0,
+      showAddEmployees: false
     }
+  },
+  components: {
+    addEmployees
   },
 
   created() {
