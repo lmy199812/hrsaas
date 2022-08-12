@@ -8,7 +8,11 @@ export function getEmployeesApi() {
     url: '/sys/user/simple'
   })
 }
-
+/**
+ * 获取
+ * @param {*} params
+ * @returns promise
+ */
 export function getEmployeesInfoApi(params) {
   return request({
     url: '/sys/user',
