@@ -23,6 +23,8 @@ if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }
+import Print from 'vue-print-nb'
+Vue.use(Print)
 //统一注册组件
 Vue.use(components)
 //统一注册过滤器

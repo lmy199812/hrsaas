@@ -38,6 +38,7 @@
 import { getUserDetail, saveUserDetailById } from '@/api/user'
 import Cookies from 'js-cookie'
 import userInfo from './components/user-info.vue'
+import jobInfo from './components/job-info.vue'
 export default {
   data() {
     return {
@@ -46,7 +47,8 @@ export default {
     }
   },
   components: {
-    userInfo
+    userInfo,
+    jobInfo
   },
 
   created() {

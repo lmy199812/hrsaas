@@ -13,9 +13,11 @@ export default {
       component: () => import('@/views/employees/detail'),
       meta: { title: '员工', icon: 'people' },
       hidden: true,
-      meta: {
-        title: '员工详情' // 标记当前路由规则的中文名称 后续在做左侧菜单时 使用
-      }
+    },
+    {
+      path: 'print/:id', // 二级默认路由
+      component: () => import('@/views/employees/print'), // 按需加载
+      hidden: true
     }
   ]
 }

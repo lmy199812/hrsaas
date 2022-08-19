@@ -14,10 +14,12 @@ export const imgError = {
       }
     }
   },
-  
+
   // 指令所绑定的元素更新时触发
   update(el, { value }) {
-    el.src = value
+    if (!el.src) {
+      el.src = value
+    }
   }
 }
 export const aa = {

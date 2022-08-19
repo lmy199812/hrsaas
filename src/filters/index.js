@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
 
-export const formatTime = (val) => {
+export const formdate = (val) => {
   return dayjs(val).format('YYYY-MM-DD')
 }

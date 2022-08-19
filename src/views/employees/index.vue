@@ -3,6 +3,7 @@
     <div class="app-container">
       <page-tools>
         <span slot="left-tag">共166条记录</span>
+
         <template slot="right">
           <el-button
             size="small"
@@ -21,6 +22,7 @@
           >
         </template>
       </page-tools>
+
       <!-- 放置表格和分页 -->
       <el-card>
         <el-table :data="employees">
@@ -37,6 +39,7 @@
                   height: 100px;
                   padding: 10px;
                 "
+                @click="showErCodeDog(row.staffPhoto)"
               />
             </template>
           </el-table-column>
@@ -100,12 +103,17 @@
       @add-success="getEmployeesList"
       :visible.sync="showAddEmployees"
     />
+    <!-- 图片二维码 -->
+    <el-dialog :visible.sync="showErCode">
+      <canvas id="canvas"></canvas>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { getEmployeesInfoApi, delEmployee } from '@/api/employees'
 import employees from '@/constant/employees'
+import QRcode from 'qrcode'
 import addEmployees from './components/addEmployees.vue'
 const { exportExcelMapPath, hireType } = employees
 export default {
@@ -118,7 +126,8 @@ export default {
         size: 5
       },
       total: 0,
-      showAddEmployees: false
+      showAddEmployees: false,
+      showErCode: false
     }
   },
   components: {
@@ -190,6 +199,14 @@ export default {
         bookType: 'xlsx', //非必填
         multiHeader: [['手机号', '其他信息', '', '', '', '', '部门']],
         merges: ['A1:A2', 'B1:F1', 'G1:G2']
+      })
+    },
+    showErCodeDog(staffPhoto) {
+      if (!staffPhoto) return this.$message.error('用户未设置头像')
+      this.showErCode = true
+      this.$nextTick(() => {
+        const canvas = document.getElementById('canvas')
+        QRcode.toCanvas(canvas, staffPhoto)
       })
     }
   }
